@@ -1,0 +1,36 @@
+defaults: &defaults
+  working_directory: ~/working_directory
+  steps:
+    - checkout
+    - run: node --version
+    - run: npm --version
+    - run: npm install
+    - run: npm run circleci
+
+version: 2
+jobs:
+  build-node4:
+    <<: *defaults
+    docker:
+      - image: node:4
+        environment:
+          NO_WATCH_TESTS: 1
+  build-node6:
+    <<: *defaults
+    docker:
+      - image: node:6
+        environment:
+          NO_WATCH_TESTS: 1
+  build-node8:
+    <<: *defaults
+    docker:
+      - image: node:8
+        environment:
+          NO_WATCH_TESTS: 1
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-node4
+      - build-node6
+      - build-node8
