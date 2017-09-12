@@ -5,7 +5,13 @@ defaults: &defaults
     - run: node --version
     - run: npm --version
     - run: npm install
+    - restore_cache:
+        key: v1-npm-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
     - run: npm run circleci
+    - save_cache:
+        key: v1-npm-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+        paths:
+          - ./node_modules
 
 env_vars: &env_vars
   environment:
