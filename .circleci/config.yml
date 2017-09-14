@@ -4,8 +4,8 @@ jobs:
     working_directory: ~/working_directory
     docker:
       - image: node:6
-        env:
-          - NO_WATCH_TESTS=1
+        environment:
+          NO_WATCH_TESTS: 1
     steps:
       - checkout
       - run: node --version
